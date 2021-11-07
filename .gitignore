@@ -3,3 +3,17 @@
 .RData
 .Ruserdata
 HR_rails_NEW.*
+*.tif
+*.shp
+*.prj
+*.shx
+*.dbf
+*.cpg
+*.xml
+*.tfw
+*.png
+*.zip
+*.tiff
+*.TIFF
+*.sbn
+*.sbx
