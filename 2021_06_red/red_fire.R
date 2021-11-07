@@ -162,4 +162,14 @@ ggplot() +
 
 
 
-ggsave(here("2021_06_red/fire_map_west.png"), width = 15, height = 15, units = "in", dpi = 300)
+
+
+
+# use knitr to remove white borders around plots..
+# https://www.pmassicotte.com/post/removing-borders-around-ggplot2-graphs/
+png_file <- here("2021_06_red/fire_map_west.png")
+
+ggsave(png_file, width = 15, height = 15, units = "in", dpi = 300)
+
+knitr::plot_crop(png_file)
+
