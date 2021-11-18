@@ -41,15 +41,19 @@ oil_stars_projected <- oil_stars %>% st_transform(crs= "+proj=wintri")
 
 fish_super_small_projected <- fish_super_small_stars %>% st_transform(4326)
 
-#ggplot( ) + 
-#  geom_stars(data = fish_super_small_stars)
-# oil_spdf <- as(raster(oil_small), "SpatialPixelsDataFrame")
-# oil_spdf <- as.data.frame(oil_spdf)
-# colnames(oil_spdf) <- c("oil", "lon", "lat")
 
+
+# j'aimerais projeter une carte... cibole.
+
+ggplot( ) + 
+  geom_stars(data = fish_super_small_projected, 
+             mapping = aes(x= x, y=y, fill = density))
+
+# ces 4 cartes marchent 
 ggplot() + 
   geom_stars(data = oil_stars, aes(x=x, y=y, fill = density))+ 
-  scale_fill_gradientn(colours = scico::scico(100, palette = "oslo"), trans = "log2",  na.value = "black") +
+  scale_fill_gradientn(colours = scico::scico(100, palette = "oslo"), #trans = "log2", 
+                       na.value = "black") +
   coord_sf(expand = FALSE)+ 
   labs(
     title = "Map #1",
@@ -102,16 +106,3 @@ knitr::plot_crop(png_file)
 
 
 
-
-# 
-# 
-# ggplot() +
-#   #layer_spatial(data = stack(ra)) + # blue marble background map
-#   geom_raster(data = oil_spdf, aes(x=lon, y = lat, fill = oil))+ 
-#   scale_fill_gradientn(colours = scico::scico(100, palette = "oslo"), trans = "log2",  na.value = "black") 
-#   #coord_sf(ylim = c(75, 89))
-# 
-# 
-# png_file <- here("2021_10_raster_boat_density/fire_map_quebec.png")
-# ggsave(png_file, width = 15, height = 15, units = "in", dpi = 300)
-# knitr::plot_crop(png_file)
