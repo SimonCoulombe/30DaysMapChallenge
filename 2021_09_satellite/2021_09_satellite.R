@@ -18,9 +18,9 @@ niamey <- tibble(address ="Niamey, Niger") %>% geocode(address = address) %>% st
 
 
 ##bbox manic5
-bbox = tibble("long" = c(-69.232372 , -68.164887 ), "lat" = c(51.073, 51.737316)) %>% 
-  st_as_sf(coords = c("long", "lat"), crs = 4326) %>%
-  st_bbox()
+# bbox = tibble("long" = c(-69.232372 , -68.164887 ), "lat" = c(51.073, 51.737316)) %>% 
+#   st_as_sf(coords = c("long", "lat"), crs = 4326) %>%
+#   st_bbox()
 
 
 #bbox niamey
@@ -97,7 +97,7 @@ permanent_water <- st_as_sf(occ["water_perm"], merge = TRUE) %>%
   st_make_valid() %>% 
   st_union()
 
-write_rds(permanent_water, "permanent_water")
+write_rds(permanent_water, "permanent_water.rds")
 } else {permanent_water <- read_rds("permanent_water.rds")}
 
 # get elevation 
@@ -131,7 +131,9 @@ out_path <- sen2r(
   gui = FALSE,
   step_atmcorr = "l2a",
   extent = tibble("long" = c(1.95 , 2.35 ), "lat" = c(13.3, 13.65)) %>% 
-    st_as_sf(coords = c("long", "lat"), crs = 4326),
+    st_as_sf(coords = c("long", "lat"), crs = 4326) %>%
+    st_bbox() %>% 
+    st_as_sfc() ,
   extent_name = "Niamey",
   timewindow = c(as.Date("2020-09-10"), as.Date("2020-09-15")),
   list_prods = "BOA",
